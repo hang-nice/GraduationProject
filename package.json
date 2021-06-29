@@ -6,11 +6,33 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --hot --hot-only",
+    "lint:tsx": "eslint --ext .tsx src && eslint --ext .ts src",
+    "lint:css": "stylelint --aei .less .css src",
+    "precommit": "lint-staged",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+  },
+  "pre-commit": [
+    "precommit",
+    "precommit-msg"
+  ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{css,less}": [
+      "stylelint --fix",
+      "prettier --write",
+      "git add"
+    ]
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "history": "^5.0.0",
+    "react-router": "^5.2.0",
     "webpack": "^5.31.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2"
@@ -20,14 +42,30 @@
     "@babel/core": "^7.13.15",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.1",
+    "error-overlay-webpack-plugin": "^0.4.2",
+    "eslint": "^7.29.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-webpack-plugin": "^2.5.4",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "less": "^4.1.1",
     "less-loader": "^8.1.0",
+    "lint-staged": "^11.0.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "style-loader": "^2.0.0"
+    "react-router-dom": "^5.2.0",
+    "style-loader": "^2.0.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^22.0.0",
+    "typescript": "^4.3.4"
   }
 }
